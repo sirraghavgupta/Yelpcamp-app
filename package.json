@@ -1,0 +1,26 @@
+{
+  "name": "yelpcamp-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sirraghavgupta/Yelpcamp-app.git"
+  },
+  "author": "Raghav Gupta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sirraghavgupta/Yelpcamp-app/issues"
+  },
+  "homepage": "https://github.com/sirraghavgupta/Yelpcamp-app#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^2.7.2",
+    "express": "^4.17.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5"
+  }
+}
