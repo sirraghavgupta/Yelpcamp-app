@@ -16,7 +16,8 @@ app.set("view engine", "ejs");
 //SCHEMA FOR THE CAMPGROUND
 var campgroundSchema = new mongoose.Schema({
 	name : String,
-	image: String
+	image: String, 
+	description : String
 });
 
 var Campground = mongoose.model("Campground", campgroundSchema);
@@ -24,7 +25,8 @@ var Campground = mongoose.model("Campground", campgroundSchema);
 // INSERT A CAMPGROUND
 /*Campground.create({
 	name: "raghav", 
-	image:"http://vivalifestyleandtravel.com/images/cache/c-1509451562-2093217504.jpg"
+	image:"http://vivalifestyleandtravel.com/images/cache/c-1509451562-2093217504.jpg",
+	description : "this is a huge campground. its a granite hill. no water, no bathrooms."
 	},
 	function(err, campground){
 		if(err)
@@ -35,27 +37,31 @@ var Campground = mongoose.model("Campground", campgroundSchema);
 		}
 	});
 */
+// LANDING
 app.get("/", function(req, res){
 
 	res.render("landing");
 });
 
+// INDEX
 app.get("/campgrounds", function(req, res){
 	// get all campgrounds from the DB
-	Campground.find({}, function(err,allCampgrounds){
+	Campground.find({}, function(err, allCampgrounds){
 		if(err)
 			console.log(err);
 		else{
-			res.render("campgrounds", {campgrounds: allCampgrounds});	
+			res.render("index", {campgrounds: allCampgrounds});	
 		}
 	});
 });
 
+// CREATE
 app.post("/campgrounds", function(req, res){
 	// get the data, add it and redirect
 	var name = req.body.name;
 	var image = req.body.image;
-	var newCampground = {name: name, image: image};
+	var description = req.body.description;
+	var newCampground = {name: name, image: image, description:description};
 	
 	Campground.create(newCampground, function(err, newlyCreated){
 		if(err)
@@ -65,10 +71,21 @@ app.post("/campgrounds", function(req, res){
 	});
 });
 
-// study the REST convention pls --
-
+// NEW 
 app.get("/campgrounds/new", function(req, res){
 	res.render("new");
+});
+
+// SHOW
+app.get("/campgrounds/:id", function(req, res){
+	// find the campground with that id 
+	Campground.findById(req.params.id, function(err, foundCampground){
+		if(err)
+			console.log(err);
+		
+		else
+			res.render("show", {campground:foundCampground});
+	});
 });
 
 // start the server
